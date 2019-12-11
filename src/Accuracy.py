@@ -11,9 +11,15 @@ an decimal value representing accuracy after adding this new feature
 import LoadData 
 import copy
 import math
-def Accuracy(data, N, features, new_feature):
+def Accuracy(data, N, features, new_feature = None):
+	if (len(features) == 0 and new_feature == None):
+		# if no features are used, let's say we have 50% chance of guessing right. 
+		# could have used numclass1/numclass2 but this is trivial anyway
+		print("No features used. Assuming guessing accuracy of .5 for 2 classes.")
+		return .5
 	features = copy.deepcopy(features)
-	features.append(new_feature)
+	if (new_feature != None):
+		features.append(new_feature)
 	num_correct = 0
 	for i in range(N):
 		best = float("inf")
