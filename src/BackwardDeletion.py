@@ -2,7 +2,7 @@ import LoadData
 import Accuracy
 
 def backwardDeletion(data):
-	p = .05
+	accuracy_at_level = []
 	answer_set = []
 	answer_accuracy = 0
 	N = len(data)
@@ -34,7 +34,8 @@ def backwardDeletion(data):
 		if (best_accuracy > answer_accuracy):
 			answer_accuracy = best_accuracy
 			answer_set = features
-	return answer_set, answer_accuracy
+		accuracy_at_level.append(best_accuracy)
+	return answer_set, answer_accuracy, accuracy_at_level
 '''
 # just to test
 data = LoadData.loadData("../data/CS170_SMALLtestdata__80.txt")

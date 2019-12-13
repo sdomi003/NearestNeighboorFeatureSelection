@@ -11,6 +11,7 @@ answer_accuracy for this feature set
 '''
 
 def forwardSelection(data):
+	accuracy_at_level = []
 	answer_accuracy = 0
 	answer_set = []
 	N = len(data)
@@ -39,7 +40,8 @@ def forwardSelection(data):
 		if (best_accuracy > answer_accuracy):
 			answer_accuracy = best_accuracy
 			answer_set = current_features[:]	
-	return answer_set, answer_accuracy
+		accuracy_at_level.append(best_accuracy)
+	return answer_set, answer_accuracy, accuracy_at_level
 	
 '''
 # just to test
