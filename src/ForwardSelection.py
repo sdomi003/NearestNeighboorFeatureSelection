@@ -20,13 +20,16 @@ def forwardSelection(data):
 		print("On search-tree level number", i)
 		feature_to_add = -1
 		best_accuracy = 0
+		best_num_wrong = float('inf')
+		
 		for j in range(1, M):
 			if (j not in current_features):
 				print("Considering feature number ", j)	
-				accuracy = Accuracy.Accuracy(data, N, current_features, j)
+				accuracy, num_wrong = Accuracy.Accuracy(data, N, current_features, j, best_num_wrong)
 				if (accuracy > best_accuracy):
 					best_accuracy = accuracy
 					feature_to_add = j
+					best_num_wrong = num_wrong
 		if (feature_to_add == -1):
 			print("ERROR: feature to add is -1")
 			exit()

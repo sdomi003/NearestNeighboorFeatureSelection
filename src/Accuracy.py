@@ -11,7 +11,7 @@ an decimal value representing accuracy after adding this new feature
 import LoadData 
 import copy
 import math
-def Accuracy(data, N, features, new_feature = None):
+def Accuracy(data, N, features, new_feature = None, stop_count = float('inf')):
 	if (len(features) == 0 and new_feature == None):
 		# if no features are used, let's say we have 50% chance of guessing right. 
 		# could have used numclass1/numclass2 but this is trivial anyway
@@ -21,6 +21,7 @@ def Accuracy(data, N, features, new_feature = None):
 	if (new_feature != None):
 		features.append(new_feature)
 	num_correct = 0
+	num_wrong = 0
 	for i in range(N):
 		best = float("inf")
 		best_location = None
@@ -36,7 +37,11 @@ def Accuracy(data, N, features, new_feature = None):
 		if (data[i][0] == data[best_location][0]):
 			#print("Node ", i, "'s NN is " ,best_location , " and they are the same class.")
 			num_correct += 1
-	return num_correct / N
+		else:
+			num_wrong += 1
+			if (num_wrong > stop_count):
+				return 0,0
+	return num_correct / N, (N - num_correct)
 
 
 

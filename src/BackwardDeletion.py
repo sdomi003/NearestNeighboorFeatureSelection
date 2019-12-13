@@ -2,6 +2,7 @@ import LoadData
 import Accuracy
 
 def backwardDeletion(data):
+	p = .05
 	answer_set = []
 	answer_accuracy = 0
 	N = len(data)
@@ -9,6 +10,7 @@ def backwardDeletion(data):
 	# start with all of the features
 	features = list(range(1,M))	
 	for count in range(1, M):
+		best_num_wrong = float('inf')
 		best_accuracy = 0
 		feature_to_omit = -1
 		for i in range(len(features)):
@@ -18,10 +20,11 @@ def backwardDeletion(data):
 				temp = features[:i] + features[i+1:]		
 			else:
 				temp = features[:-1]
-			temp_accuracy = Accuracy.Accuracy(data, N, temp, None)
+			temp_accuracy, num_wrong = Accuracy.Accuracy(data, N, temp, None, best_num_wrong)
 			if (temp_accuracy > best_accuracy):
 				best_accuracy = temp_accuracy
 				feature_to_omit = i
+				best_num_wrong = num_wrong
 		print("Omitting feature", features[feature_to_omit])
 		if (feature_to_omit < len(features) - 1):
 			features = features[:feature_to_omit] + features[feature_to_omit+1:]
